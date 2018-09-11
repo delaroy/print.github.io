@@ -1,0 +1,90 @@
+<html>
+  <script src='./dist/print.min.js'></script>
+  <script type="text/javascript">
+  
+    function printHtml() {
+      printJS({
+        printable: 'Hello Steef!',
+        type: 'html'
+      });
+    }
+
+      printJS(
+        {
+          printable: data,
+          properties: [{
+            field: 'test1',
+            displayName: 'test 1',
+            columnSize: 1
+          },{
+            field: 'test2',
+            displayName: 'test 2',
+            columnSize: 4
+          }],
+          type: 'json'
+        })
+    }
+
+    function printStyledJson() {
+        let data = [
+            {
+                test1: 'Test1 string',
+                test2: 'Test2 string'
+            },
+            {
+                test1: 'more Test1 string',
+                test2: 'more Test2 string'
+            }
+        ]
+
+        printJS({printable: data, properties: ['test1', 'test2'], type: 'json', gridStyle: 'border: 2px solid #3971A5;', gridHeaderStyle: 'color: red;  border: 2px solid #3971A5;'})
+    }
+
+    function printNestedJson() {
+      let data = [];
+      for (let i=0; i <= 100; i++){
+        data.push({
+          test1: createRandomString(),
+          test2: {
+            a: createRandomString()
+          }
+        });
+      }
+
+      printJS(
+        {
+          printable: data,
+          properties: [{
+            field: 'test1',
+            displayName: 'test 1',
+            columnSize: 1
+          },{
+            field: 'test2.a',
+            displayName: 'test 2 - a',
+            columnSize: 4
+          }],
+          type: 'json'
+        })
+    }
+
+    function createRandomString() {
+      var text = "";
+      var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+      for (var i = 0; i < 5; i++)
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+      return text;
+    }
+  </script>
+  <body>
+    <section id="test" class="test">
+      <h1>Print.js Test Page</h1>
+      <p>
+        <button onClick='printHtml();'>
+          Print your name
+        </button>
+      </p>
+    </section>
+  </body>
+</html>
